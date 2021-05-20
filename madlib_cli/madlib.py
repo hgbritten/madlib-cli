@@ -63,9 +63,10 @@ if __name__ == "__main__":
 
         return user_responses
 
-    parsed_data_tuple = parse_template(
+    stripped_template, speech_parts = parse_template(
         read_template("assets/dark_and_stormy_night.txt")
     )
-    responses = get_responses(parsed_data_tuple[1])
-    print(merge(parsed_data_tuple[0], responses))
+
+    responses = get_responses(speech_parts)
+    print(merge(stripped_template, responses))
     # Want to loop through words to set prompt for input
