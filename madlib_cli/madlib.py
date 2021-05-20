@@ -26,9 +26,46 @@ def parse_template(template):
             current_part += char
         else:
             final_stripped_template += char
-    return final_stripped_template, tuple(collection_of_parts)
+
+    # This returns a Tuple. It knows this because of the comma
+    return_value = final_stripped_template, tuple(collection_of_parts)
+    return return_value
+    # return final_stripped_template, tuple(collection_of_parts)
 
 
 def merge(template, parts):
     merged = template.format(*parts)
     return merged
+
+
+if __name__ == "__main__":
+    print(
+        """
+
+  *****************************************************
+
+  Welcome. We are going to play Madlibs!
+  You will be prompted with a series of prompts.
+  Provide appropriate responses to complete the Madlib
+
+  *****************************************************
+
+  """
+    )
+
+    def get_responses(speech_parts):
+        # need template text to put words into
+        user_responses = []
+        for part in speech_parts:
+            prompt = f"Provide a/an {part} "
+            response = input(prompt)
+            user_responses.append(response)
+
+        return user_responses
+
+    parsed_data_tuple = parse_template(
+        read_template("assets/dark_and_stormy_night.txt")
+    )
+    responses = get_responses(parsed_data_tuple[1])
+    print(merge(parsed_data_tuple[0], responses))
+    # Want to loop through words to set prompt for input
