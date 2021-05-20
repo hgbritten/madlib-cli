@@ -10,7 +10,7 @@ def read_template(path):
 # {a}
 def parse_template(template):
     final_stripped_template = ""
-    collecion_of_parts = []
+    collection_of_parts = []
     current_part = ""
     capturing_part = False
     for char in template:
@@ -18,14 +18,17 @@ def parse_template(template):
             final_stripped_template += char
             capturing_part = True
             current_part = ""
-        if char == "}":
+        elif char == "}":
             final_stripped_template += char
             capturing_part = False
-            collecion_of_parts.append(current_part)
-        if capturing_part:
+            collection_of_parts.append(current_part)
+        elif capturing_part:
             current_part += char
-        return final_stripped_template, tuple(collecion_of_parts)
+        else:
+            final_stripped_template += char
+    return final_stripped_template, tuple(collection_of_parts)
 
 
-def merge():
-    pass
+def merge(template, parts):
+    merged = template.format(*parts)
+    return merged
